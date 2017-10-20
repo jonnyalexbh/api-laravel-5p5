@@ -18,8 +18,15 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /**
-* countries
+* countries api token authentication
 */
 Route::group(['middleware' => 'auth:api'], function () {
   Route::resource('countries', 'CountrieController', ['only' => ['index', 'show']]);
+});
+
+/**
+* countries auth.basic
+*/
+Route::group(['middleware' => 'auth.basic'], function () {
+  Route::resource('countries-basic', 'CountrieController', ['only' => ['index', 'show']]);
 });
