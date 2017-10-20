@@ -3,8 +3,12 @@
 namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Http\Response;
 use Illuminate\Auth\AuthenticationException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
+use Symfony\Component\HttpKernel\Exception\MethodNotAllowedHttpException;
 
 class Handler extends ExceptionHandler
 {
@@ -39,7 +43,7 @@ class Handler extends ExceptionHandler
   {
     parent::report($exception);
   }
-
+  
   /**
   * Render an exception into an HTTP response.
   *
@@ -49,6 +53,27 @@ class Handler extends ExceptionHandler
   */
   public function render($request, Exception $exception)
   {
+
+    // UnauthorizedHttpException
+    if ($exception instanceof UnauthorizedHttpException) {
+      return new Response(['message' => 'Credenciales no válidas.'], 401, ['WWW-Authenticate' => 'Basic']);
+    }
+
+    // AuthenticationException
+    if ($exception instanceof AuthenticationException) {
+      return $this->unauthenticated($request, $exception);
+    }
+
+    // the request contains a type (GET, PUT, POST etc) that is not used in this API
+    if ($exception instanceof MethodNotAllowedHttpException) {
+      return response()->json(['message' => 'The specified method for the request is invalid', 'code' => 405,], 405);
+    }
+
+    // basically an invalid path in the request
+    if ($exception instanceof NotFoundHttpException) {
+      return response()->json(['message' => 'The specified URL cannot be found', 'code' => 404,], 404);
+    }
+
     return parent::render($request, $exception);
   }
 
@@ -57,10 +82,19 @@ class Handler extends ExceptionHandler
   */
   protected function unauthenticated($request, AuthenticationException $exception)
   {
-    if ($request->expectsJson()) {
-      return response()->json(['error' => 'Unauthenticated.'], 401);
+    if ($this->isFrontend($request)) {
+      return redirect()->guest('login');
     }
-    return redirect()->guest('login');
+    return response()->json(['message' => 'Unauthenticated', 'code' => 401,], 401);
+  }
+
+  /**
+  * isFrontend
+  */
+  private function isFrontend($request)
+  {
+    // return true if the request accepts HTML and the middleware of the route contains the 'web' middleware
+    return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
   }
 
 }
