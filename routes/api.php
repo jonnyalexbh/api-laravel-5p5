@@ -32,6 +32,13 @@ Route::group(['middleware' => 'auth.basic'], function () {
 });
 
 /**
+* countries auth.basic.once
+*/
+Route::group(['middleware' => 'auth.basic.once'], function () {
+  Route::resource('countries-basic-once', 'CountrieController', ['only' => ['index', 'show']]);
+});
+
+/**
 * countries passport
 */
 Route::resource('countries', 'CountrieController', ['only' => ['index', 'show']]);
