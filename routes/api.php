@@ -14,5 +14,12 @@ use Illuminate\Http\Request;
 */
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+  return $request->user();
+});
+
+/**
+* countries
+*/
+Route::group(['middleware' => 'auth:api'], function () {
+  Route::resource('countries', 'CountrieController', ['only' => ['index', 'show']]);
 });
