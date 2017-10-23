@@ -18,6 +18,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /**
+* login
+*/
+Route::post('login', 'Api\Auth\LoginController@login');
+
+/**
 * countries api token authentication
 */
 Route::group(['middleware' => 'auth:api'], function () {

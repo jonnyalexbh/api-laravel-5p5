@@ -5,6 +5,7 @@ namespace App\Exceptions;
 use Exception;
 use Illuminate\Http\Response;
 use Illuminate\Auth\AuthenticationException;
+use Illuminate\Validation\ValidationException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
@@ -43,7 +44,7 @@ class Handler extends ExceptionHandler
   {
     parent::report($exception);
   }
-  
+
   /**
   * Render an exception into an HTTP response.
   *
@@ -95,6 +96,23 @@ class Handler extends ExceptionHandler
   {
     // return true if the request accepts HTML and the middleware of the route contains the 'web' middleware
     return $request->acceptsHtml() && collect($request->route()->middleware())->contains('web');
+  }
+  
+  /**
+  * convertValidationExceptionToResponse
+  */
+  protected function convertValidationExceptionToResponse(ValidationException $e, $request)
+  {
+    $errors = $e->validator->errors()->getMessages();
+
+    if ($this->isFrontend($request)) {
+      return $request->ajax() ? response()->json($error, 422) : redirect()
+      ->back()
+      ->withInput($request->input())
+      ->withErrors($errors);
+    }
+
+    return response()->json(['message' => $errors], 422);
   }
 
 }
