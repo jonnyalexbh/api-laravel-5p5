@@ -22,6 +22,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 */
 Route::post('login', 'Api\Auth\LoginController@login');
 Route::post('refresh', 'Api\Auth\LoginController@refresh');
+Route::group(['middleware' => 'auth:api'], function () {
+  Route::post('logout', 'Api\Auth\LoginController@logout');
+});
 
 /**
 * countries api token authentication
