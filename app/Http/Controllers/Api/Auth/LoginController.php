@@ -22,6 +22,34 @@ class LoginController extends Controller
   }
 
   /**
+  * simple login
+  */
+  public function loginSimple(){
+
+    if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+      $user = Auth::user();
+      $success['token'] =  $user->createToken('MyApp')->accessToken;
+      return response()->json(['success' => $success], 200);
+    }
+    else{
+      return response()->json(['error'=>'Unauthorised'], 401);
+    }
+  }
+
+  public function detailsSimple()
+  {
+    $user = Auth::user();
+    return response()->json(['success' => $user], 200);
+  }
+
+  public function logoutSimple()
+  {
+    $accessToken = Auth::user()->token();
+    $accessToken->revoke();
+    return response()->json(['success' => $accessToken], 200);
+  }
+
+  /**
   * login
   */
   public function login(Request $request){

@@ -18,6 +18,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 
 /**
+* simple login
+*/
+Route::post('login-simple', 'Api\Auth\LoginController@loginSimple');
+
+Route::group(['middleware' => 'auth:api'], function(){
+  Route::post('details-simple', 'Api\Auth\LoginController@detailsSimple');
+  Route::post('logout-simple', 'Api\Auth\LoginController@logoutSimple');
+});
+
+/**
 * login
 */
 Route::post('login', 'Api\Auth\LoginController@login');
