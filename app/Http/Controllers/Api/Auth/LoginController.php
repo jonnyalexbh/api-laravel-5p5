@@ -16,7 +16,7 @@ class LoginController extends Controller
   * __construct
   */
   public function __construct(){
-    $this->client = Client::find(2);
+    $this->client = Client::find(1);
   }
 
   /**
@@ -31,6 +31,28 @@ class LoginController extends Controller
 
     $params = [
       'grant_type' => 'password',
+      'client_id' => $this->client->id,
+      'client_secret' => $this->client->secret
+    ];
+
+    $request->request->add($params);
+
+    $proxy = Request::create('oauth/token', 'POST');
+
+    return Route::dispatch($proxy);
+  }
+
+  /**
+  * refresh
+  */
+  public function refresh(Request $request){
+
+    $this->validate($request, [
+      'refresh_token' => 'required'
+    ]);
+    
+    $params = [
+      'grant_type' => 'refresh_token',
       'client_id' => $this->client->id,
       'client_secret' => $this->client->secret
     ];
