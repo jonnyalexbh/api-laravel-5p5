@@ -21,25 +21,25 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 * countries api token authentication
 */
 Route::group(['middleware' => 'auth:api'], function () {
-  Route::resource('countries-token', 'CountrieController', ['only' => ['index', 'show']]);
+  Route::resource('countries-token', 'Api\CountrieController', ['only' => ['index', 'show']]);
 });
 
 /**
 * countries auth.basic
 */
 Route::group(['middleware' => 'auth.basic'], function () {
-  Route::resource('countries-basic', 'CountrieController', ['only' => ['index', 'show']]);
+  Route::resource('countries-basic', 'Api\CountrieController', ['only' => ['index', 'show']]);
 });
 
 /**
 * countries auth.basic.once
 */
 Route::group(['middleware' => 'auth.basic.once'], function () {
-  Route::resource('countries-basic-once', 'CountrieController', ['only' => ['index', 'show']]);
+  Route::resource('countries-basic-once', 'Api\CountrieController', ['only' => ['index', 'show']]);
 });
 
 /**
 * countries passport
 */
-Route::resource('countries', 'CountrieController', ['only' => ['index', 'show']]);
-Route::resource('countries-auth', 'CountrieController', ['only' => ['index', 'show']])->middleware('auth:api');
+Route::resource('countries', 'Api\CountrieController', ['only' => ['index', 'show']]);
+Route::resource('countries-auth', 'Api\CountrieController', ['only' => ['index', 'show']])->middleware('auth:api');

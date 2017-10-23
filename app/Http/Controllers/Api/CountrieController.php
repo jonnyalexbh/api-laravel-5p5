@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Countrie;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class CountrieController extends Controller
 {
@@ -17,7 +18,7 @@ class CountrieController extends Controller
     $countries = Countrie::all();
     return response()->json(['data' => $countries], 200);
   }
-  
+
   /**
   * Show the form for creating a new resource.
   *
