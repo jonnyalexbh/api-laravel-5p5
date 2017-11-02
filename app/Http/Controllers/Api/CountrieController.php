@@ -37,7 +37,8 @@ class CountrieController extends Controller
   */
   public function store(Request $request)
   {
-    //
+    $countrie = Countrie::create($request->all());
+    return response()->json(['data' => $countrie], 201);
   }
 
   /**

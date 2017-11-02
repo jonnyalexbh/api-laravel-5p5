@@ -54,7 +54,7 @@ Route::group(['middleware' => 'auth.basic'], function () {
 * countries auth.basic.once
 */
 Route::group(['middleware' => 'auth.basic.once'], function () {
-  Route::resource('countries-basic-once', 'Api\CountrieController', ['only' => ['index', 'show']]);
+  Route::resource('countries-basic-once', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
 });
 
 /**
