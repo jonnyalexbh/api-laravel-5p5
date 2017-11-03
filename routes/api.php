@@ -60,5 +60,5 @@ Route::group(['middleware' => 'auth.basic.once'], function () {
 /**
 * countries passport
 */
-Route::resource('countries', 'Api\CountrieController', ['only' => ['index', 'show']]);
-Route::resource('countries-auth', 'Api\CountrieController', ['only' => ['index', 'show']])->middleware('auth:api');
+Route::resource('countries', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
+Route::resource('countries-auth', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);

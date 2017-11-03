@@ -8,6 +8,13 @@ use App\Http\Controllers\Controller;
 
 class CountrieController extends Controller
 {
+
+  public function __construct()
+  {
+    $this->middleware('client.credentials')->only(['show']);
+    $this->middleware('auth:api')->only(['store']);
+  }
+
   /**
   * Display a listing of the resource.
   *
