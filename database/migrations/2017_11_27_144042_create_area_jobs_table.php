@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTpDocsTable extends Migration
+class CreateAreaJobsTable extends Migration
 {
   /**
   * Run the migrations.
@@ -13,9 +13,9 @@ class CreateTpDocsTable extends Migration
   */
   public function up()
   {
-    Schema::create('tp_docs', function (Blueprint $table) {
-      $table->string('id', 10);
-      $table->string('name', 40);
+    Schema::create('area_jobs', function (Blueprint $table) {
+      $table->string('id', 4);
+      $table->string('name', 62);
       $table->timestamps();
 
       $table->primary('id');
@@ -29,6 +29,6 @@ class CreateTpDocsTable extends Migration
   */
   public function down()
   {
-    Schema::dropIfExists('tp_docs');
+    Schema::dropIfExists('area_jobs');
   }
 }
