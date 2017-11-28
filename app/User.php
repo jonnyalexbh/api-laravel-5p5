@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Gender;
 use Laravel\Passport\HasApiTokens;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -27,4 +28,12 @@ class User extends Authenticatable
   protected $hidden = [
     'password', 'remember_token',
   ];
+
+  /**
+  * gender one-to-one relationship
+  */
+  public function gender()
+  {
+    return $this->belongsTo(Gender::class);
+  }
 }

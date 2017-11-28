@@ -37,3 +37,8 @@ Route::get('/greeting/{name}/{nickname?}', function ($name, $nickname = null) {
     return "Welcome {$name}";
   }
 });
+
+/**
+* users
+*/
+Route::resource('users', 'UserController', ['only' => ['index']]);
