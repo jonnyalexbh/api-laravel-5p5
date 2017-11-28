@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateSectorJobsTable extends Migration
 {
   /**
   * Run the migrations.
@@ -13,14 +13,12 @@ class CreateUsersTable extends Migration
   */
   public function up()
   {
-    Schema::create('users', function (Blueprint $table) {
-      $table->increments('id');
-      $table->string('name');
-      $table->string('email')->unique();
-      $table->string('password');
-      $table->string('api_token', 60)->unique();
-      $table->rememberToken();
+    Schema::create('sector_jobs', function (Blueprint $table) {
+      $table->string('id', 4);
+      $table->string('name', 62);
       $table->timestamps();
+
+      $table->primary('id');
     });
   }
 
@@ -31,6 +29,6 @@ class CreateUsersTable extends Migration
   */
   public function down()
   {
-    Schema::dropIfExists('users');
+    Schema::dropIfExists('sector_jobs');
   }
 }

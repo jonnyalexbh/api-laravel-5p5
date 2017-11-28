@@ -21,8 +21,7 @@ class CreateAcademicTrainingsTable extends Migration
       $table->string('study_area_id', 8);
       $table->date('dt_start');
       $table->date('dt_end');
-      $table->string('state', 45);
-      $table->longText('comment');
+      $table->boolean('state');
       $table->timestamps();
 
       $table->foreign('user_id')->references('id')->on('users');
