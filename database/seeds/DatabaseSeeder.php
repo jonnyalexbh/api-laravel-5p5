@@ -13,18 +13,20 @@ class DatabaseSeeder extends Seeder
   */
   public function run()
   {
-    // $this->call(UsersTableSeeder::class);
 
     DB::statement('SET FOREIGN_KEY_CHECKS = 0');
 
     Countrie::truncate();
     Gender::truncate();
 
+    // $this->call(UsersTableSeeder::class);
+    $this->call(GendersTableSeeder::class);
+
     $numberOfCountries = 20;
     $numberGenders = 2;
 
     factory(Countrie::class, $numberOfCountries)->create();
-    factory(Gender::class, $numberGenders)->create();
+    // factory(Gender::class, $numberGenders)->create();
 
   }
 }
