@@ -8,18 +8,18 @@ use Illuminate\Http\Request;
 class SocialAuthController extends Controller
 {
   /**
-  * google
+  * redirectToProvider
   */
-  public function google()
+  public function redirectToProvider($provider)
   {
-    return Socialite::driver('google')->redirect();
+    return Socialite::driver($provider)->redirect();
   }
   /**
-  * callback google
+  * handleProviderCallback
   */
-  public function callback()
+  public function handleProviderCallback($provider)
   {
-    $user = Socialite::driver('google')->user();
+    $user = Socialite::driver($provider)->user();
     dd($user);
   }
 }

@@ -51,5 +51,5 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
 * laravel socialite
 */
-Route::get('/auth/google', 'SocialAuthController@google');
-Route::get('/auth/google/callback', 'SocialAuthController@callback');
+Route::get('/auth/{provider}', 'SocialAuthController@redirectToProvider')->name('social.auth');
+Route::get('/auth/{provider}/callback', 'SocialAuthController@handleProviderCallback');

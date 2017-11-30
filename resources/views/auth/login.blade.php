@@ -74,6 +74,11 @@
                     <a class='btn btn-info disabled'><i class="fa fa-twitter" style="width:16px; height:20px"></i></a>
                     <a class='btn btn-info ' href='' style="width:12em"> Sign in with Twitter</a>
                   </div>
+                  <br /><br />
+                  <div class="btn-group">
+                    <a class='btn btn-warning disabled'><i class="fa fa-twitter" style="width:16px; height:20px"></i></a>
+                    <a class='btn btn-warning ' href='{{ route('social.auth', 'github') }}' style="width:12em"> Sign in with Github</a>
+                  </div>
                 </div>
               </div>
             </form>
