@@ -35,4 +35,10 @@ return [
         'secret' => env('STRIPE_SECRET'),
     ],
 
+    'google' => [
+    'client_id' => '406016254956-c72tpok23qn6bbrvfou44kdom5se7j1l.apps.googleusercontent.com',
+    'client_secret' => 'outHFkNsiqPozQIHBiWb3Nby',
+    'redirect' => 'http://jonny9026.com:272/auth/google/callback',
+    ]
+
 ];
