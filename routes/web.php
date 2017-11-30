@@ -11,11 +11,6 @@
 |
 */
 
-
-Route::get('/', function () {
-  return 'Home';
-});
-
 Route::get('/users', function () {
   return 'Users';
 });
@@ -42,3 +37,14 @@ Route::get('/greeting/{name}/{nickname?}', function ($name, $nickname = null) {
 * users
 */
 Route::resource('users', 'UserController', ['only' => ['index']]);
+
+/**
+* default authentication
+*/
+Route::get('/', function () {
+  return view('welcome');
+});
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
