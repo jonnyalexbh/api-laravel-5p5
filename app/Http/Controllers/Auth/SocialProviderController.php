@@ -39,11 +39,12 @@ class SocialProviderController extends Controller
     }
     // otherwise create a new user
     else {
-      $user = User::firstOrCreate(
-        ['name' => $socialiteUser->getName()],
-        ['email' => $socialiteUser->getEmail()],
-        ['password' => str_random(15)]
-      );
+      $user = User::firstOrCreate([
+        'email' => $socialiteUser->getEmail()
+      ], [
+        'name' => $socialiteUser->getName(),
+        'password' => str_random(15)
+      ]);
 
       $user->socialProviders()->create([
         'provider_id' => $socialiteUser->getId(),
