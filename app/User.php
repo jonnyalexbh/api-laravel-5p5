@@ -28,12 +28,20 @@ class User extends Authenticatable
   protected $hidden = [
     'password', 'remember_token',
   ];
-
+  
   /**
   * gender one-to-one relationship
   */
   public function gender()
   {
     return $this->belongsTo(Gender::class);
+  }
+
+  /**
+  * socialProviders relationship
+  */
+  public function socialProviders()
+  {
+    return $this->hasMany('App\SocialProvider');
   }
 }
