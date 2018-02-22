@@ -1,6 +1,10 @@
 <?php
 
+use App\Tp_doc;
+use App\Gender;
+use App\Geo_div;
 use App\Countrie;
+use App\Marital_status;
 use Faker\Generator as Faker;
 
 /*
@@ -18,19 +22,15 @@ $factory->define(App\User::class, function (Faker $faker) {
   static $password;
 
   return [
-    'name' => $faker->name,
+    'identification' => $faker->name,
     'email' => $faker->unique()->safeEmail,
     'password' => $password ?: $password = bcrypt('secret'),
+    'gender_id' => Gender::all()->random()->id,
+    'marital_status_id' => Marital_status::all()->random()->id,
+    'tp_doc_id' => Tp_doc::all()->random()->id,
+    'country_id' => Countrie::all()->random()->id,
+    'geo_div_id' => Geo_div::all()->random()->id,
     'remember_token' => str_random(10),
-  ];
-});
-
-/**
-* Countrie
-*/
-$factory->define(Countrie::class, function (Faker $faker) {
-  return [
-    'id' => $faker->unique()->randomNumber(4),
-    'name' => $faker->country(),
+    'api_token' => str_random(10),
   ];
 });
