@@ -1,7 +1,7 @@
 <?php
 
-use Faker\Generator as Faker;
 use App\Countrie;
+use Faker\Generator as Faker;
 
 /**
 * Countrie

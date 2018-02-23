@@ -22,8 +22,16 @@ $factory->define(App\User::class, function (Faker $faker) {
   static $password;
 
   return [
-    'identification' => $faker->name,
+    'identification' => $faker->unique()->randomNumber(9),
+    'first_name' => $faker->firstName,
+    'second_name' => $faker->lastName,
+    'first_sur_name' => $faker->firstName,
+    'second_sur_name' => $faker->lastName,
+    'dt_birth' => $faker->date($format = 'Y-m-d', $max = 'now'),
+    'phone' => $faker->phoneNumber,
+    'mobile' => $faker->tollFreePhoneNumber,
     'email' => $faker->unique()->safeEmail,
+    'is_active' => $faker->randomElement([0, 1]),
     'password' => $password ?: $password = bcrypt('secret'),
     'gender_id' => Gender::all()->random()->id,
     'marital_status_id' => Marital_status::all()->random()->id,
