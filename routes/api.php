@@ -63,13 +63,12 @@ Route::group(['middleware' => 'auth.basic.once'], function () {
 Route::resource('countries', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
 Route::resource('countries-auth', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
 
-
 /**
 * gender-users
 */
-Route::get('gender-users/{id}', 'Api\GenderController@usersGender');
+Route::resource('genders', 'Api\GenderController');
 
 /**
 * users
 */
-Route::resource('users', 'Api\UserController', ['only' => ['index']]);
+Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);

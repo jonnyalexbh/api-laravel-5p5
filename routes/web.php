@@ -36,8 +36,7 @@ Route::get('/greeting/{name}/{nickname?}', function ($name, $nickname = null) {
 /**
 * users
 */
-Route::resource('users', 'UserController', ['only' => ['index']]);
-Route::get('users-all', 'UserController@usersAll');
+Route::resource('users', 'UserController', ['only' => ['index', 'show']]);
 
 /**
 * default authentication

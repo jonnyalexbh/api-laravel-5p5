@@ -9,10 +9,20 @@ use App\Http\Controllers\Controller;
 class GenderController extends Controller
 {
   /**
-  * users gender
+  *
+  * index
   */
-  function usersGender($id){
-    $usersGender = Gender::find($id)->users;
-    return response()->json(['data' => $usersGender], 200);
+  public function index()
+  {
+    $genders =  Gender::all();
+    return response()->json(['data' => $genders], 200);
+  }
+  /**
+  *
+  * show
+  */
+  public function show(Gender $gender)
+  {
+    return response()->json(['data' => $gender], 200);
   }
 }
