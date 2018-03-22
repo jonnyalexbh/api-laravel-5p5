@@ -13,7 +13,7 @@ return [
   */
 
   'supportsCredentials' => false,
-  'allowedOrigins' => ['www.test-cors.org'],
+  'allowedOrigins' => ['*'],
   'allowedHeaders' => ['*'],
   'allowedMethods' => ['*'],
   'exposedHeaders' => [],
