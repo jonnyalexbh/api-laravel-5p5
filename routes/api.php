@@ -72,3 +72,8 @@ Route::resource('genders', 'Api\GenderController');
 * users
 */
 Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
+
+/**
+* users-return
+*/
+Route::resource('users-return', 'Api\UserReturnController');
