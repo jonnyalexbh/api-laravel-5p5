@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use Validator;
 use App\Gender;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\ApiController;
 
-class GenderController extends Controller
+class GenderController extends ApiController
 {
   /**
   * index
@@ -15,7 +16,7 @@ class GenderController extends Controller
   public function index()
   {
     $genders =  Gender::all();
-    return response()->json(['data' => $genders], 200);
+    return $this->showAll($genders);
   }
   /**
   * show
@@ -23,7 +24,35 @@ class GenderController extends Controller
   */
   public function show(Gender $gender)
   {
-    return response()->json(['data' => $gender], 200);
+    return $this->showOne($gender);
+  }
+  /**
+  * update
+  *
+  */
+  public function update(Request $request, Gender $gender)
+  {
+    $rules = [
+      'name' => 'required|min:6',
+    ];
+
+    $validator = Validator::make($request->all(), $rules);
+
+    if($validator->fails()) {
+      return response()->json(['error' => $validator->errors()], 401);
+    }
+
+    if ($request->has('name')) {
+      $gender->name = $request->name;
+    }
+
+    if (!$gender->isDirty()) {
+      return $this->errorResponse('You need to specify a different value to update', 422);
+    }
+
+    $gender->save();
+
+    return $this->showOne($gender);
   }
   /**
   * store
@@ -31,8 +60,19 @@ class GenderController extends Controller
   */
   public function store(Request $request)
   {
-    $gender = Gender::create($request->all());
-    return response()->json(['data' => $gender], 201);
+    $fields = $request->all();
+
+    $validator = Validator::make($fields, [
+      'id' => 'required',
+      'name' => 'required'
+    ]);
+
+    if($validator->fails()){
+      return $this->validationErrors('Validation error.', $validator->errors());
+    }
+
+    $gender = Gender::create($fields);
+    return $this->showOne($gender, 201);
   }
   /**
   * destroy
@@ -41,6 +81,6 @@ class GenderController extends Controller
   public function destroy($id)
   {
     $gender = Gender::destroy($id);
-    return response()->json(['data' => $gender], 200);
+    return $this->showOne($gender);
   }
 }
