@@ -19,16 +19,19 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 
 /**
 * simple login
+*
 */
-Route::post('login-simple', 'Api\Auth\LoginController@loginSimple');
+Route::post('login-simple', 'Api\Auth\LoginSimpleController@login');
+Route::post('register-simple', 'Api\Auth\LoginSimpleController@register');
 
 Route::group(['middleware' => 'auth:api'], function(){
-  Route::post('details-simple', 'Api\Auth\LoginController@detailsSimple');
-  Route::post('logout-simple', 'Api\Auth\LoginController@logoutSimple');
+  Route::post('details-simple', 'Api\Auth\LoginSimpleController@details');
+  Route::post('logout-simple', 'Api\Auth\LoginSimpleController@logout');
 });
 
 /**
 * login
+*
 */
 Route::post('login', 'Api\Auth\LoginController@login');
 Route::post('refresh', 'Api\Auth\LoginController@refresh');
@@ -38,6 +41,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 /**
 * countries api token authentication
+*
 */
 Route::group(['middleware' => 'auth:api'], function () {
   Route::resource('countries-token', 'Api\CountrieController', ['only' => ['index', 'show']]);
@@ -45,6 +49,7 @@ Route::group(['middleware' => 'auth:api'], function () {
 
 /**
 * countries auth.basic
+*
 */
 Route::group(['middleware' => 'auth.basic'], function () {
   Route::resource('countries-basic', 'Api\CountrieController', ['only' => ['index', 'show']]);
@@ -52,6 +57,7 @@ Route::group(['middleware' => 'auth.basic'], function () {
 
 /**
 * countries auth.basic.once
+*
 */
 Route::group(['middleware' => 'auth.basic.once'], function () {
   Route::resource('countries-basic-once', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
@@ -59,21 +65,25 @@ Route::group(['middleware' => 'auth.basic.once'], function () {
 
 /**
 * countries passport
+*
 */
 Route::resource('countries', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
 Route::resource('countries-auth', 'Api\CountrieController', ['only' => ['index', 'show', 'store']]);
 
 /**
 * gender-users
+*
 */
 Route::resource('genders', 'Api\GenderController');
 
 /**
 * users
+*
 */
 Route::resource('users', 'Api\UserController', ['only' => ['index', 'show']]);
 
 /**
 * users-return
+*
 */
 Route::resource('users-return', 'Api\UserReturnController');
